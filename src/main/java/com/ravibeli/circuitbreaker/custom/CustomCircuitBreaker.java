@@ -1,10 +1,24 @@
 package com.ravibeli.circuitbreaker.custom;
+
+import java.util.function.Function;
+import java.util.function.Supplier;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+
 /**
+ * @author ravibeli@gmail.com
  * @project circuitbreaker
- * @author Ravikumar.Beli@blueyonder.com
- * @created on 11 Jul, 2021 7:04 PM
- *
+ * @created on 11 Jul, 2021 4:31 PM
  **/
 
-public class CustomCircuitBreaker {
+public class CustomCircuitBreaker implements CircuitBreaker {
+
+    @Override
+    public <T> T run(Supplier<T> toRun) {
+        return CircuitBreaker.super.run(toRun);
+    }
+
+    @Override
+    public <T> T run(Supplier<T> toRun, Function<Throwable, T> fallback) {
+        return toRun.get();
+    }
 }

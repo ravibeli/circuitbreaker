@@ -17,12 +17,13 @@
 package com.ravibeli.circuitbreaker.controllers;
 
 import com.ravibeli.circuitbreaker.service.impl.MockServiceImpl;
+import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+import org.springframework.cloud.client.circuitbreaker.NoFallbackAvailableException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,8 +40,8 @@ public class DemoController {
 
     Logger LOG = LoggerFactory.getLogger(DemoController.class);
 
-    @Autowired
     private CircuitBreakerFactory circuitBreakerFactory;
+
     private MockServiceImpl mockServiceImpl;
 
     public DemoController(CircuitBreakerFactory circuitBreakerFactory, MockServiceImpl mockServiceImpl) {
@@ -61,6 +62,15 @@ public class DemoController {
 
     @GetMapping("/delay/{seconds}")
     public Map delay(@PathVariable int seconds) {
-        return mockServiceImpl.delay(seconds);
+        return (Map) circuitBreakerFactory.create("custom")
+            .run(() -> (mockServiceImpl.delay(seconds)),throwable -> fallBack());
     }
+
+    private Map fallBack() {
+        LOG.info("CIRCUIT BREAKER FALLBACK");
+        Map<String, String> fallback = new HashMap<>();
+        fallback.put("FALLBACK", "There is a network hiccup. Please try after sometime.");
+        return fallback;
+    }
+
 }

@@ -16,7 +16,6 @@
 
 package com.ravibeli.circuitbreaker.service.impl;
 
-import com.ravibeli.circuitbreaker.aop.ApplyCircuitBreaker;
 import com.ravibeli.circuitbreaker.service.BaseService;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +29,7 @@ import org.springframework.web.client.RestTemplate;
  **/
 @Slf4j
 @Service
-public class MockServiceImpl implements BaseService {
+public class MockServiceImpl {
 
     private RestTemplate rest;
 
@@ -44,15 +43,8 @@ public class MockServiceImpl implements BaseService {
     }
 
     @Override
-    @ApplyCircuitBreaker
     public Map delay(int seconds) {
         return rest.getForObject("https://httpbin.org/delay/" + seconds, Map.class);
-    }
-
-    @Override
-    public Map fallBack() {
-        log.info("Fallback called");
-        return null;
     }
 
 }

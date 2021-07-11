@@ -1,4 +1,4 @@
-# Spring Cloud CircuitBreaker Enable/Disable Example
+# Getting Started
 
 ### Simple demonstration of spring cloud circuit breaker
 

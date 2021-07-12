@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ravibeli.circuitbreaker.service.impl;
+package com.ravibeli.circuitbreaker.service;
 
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;

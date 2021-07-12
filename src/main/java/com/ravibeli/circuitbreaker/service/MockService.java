@@ -16,7 +16,6 @@
 
 package com.ravibeli.circuitbreaker.service.impl;
 
-import com.ravibeli.circuitbreaker.service.BaseService;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,20 +28,18 @@ import org.springframework.web.client.RestTemplate;
  **/
 @Slf4j
 @Service
-public class MockServiceImpl {
+public class MockService {
 
     private RestTemplate rest;
 
-    public MockServiceImpl(RestTemplate rest) {
+    public MockService(RestTemplate rest) {
         this.rest = rest;
     }
 
-    @Override
     public Map get() {
         return rest.getForObject("https://httpbin.org/get", Map.class);
     }
 
-    @Override
     public Map delay(int seconds) {
         return rest.getForObject("https://httpbin.org/delay/" + seconds, Map.class);
     }

@@ -16,14 +16,12 @@
 
 package com.ravibeli.circuitbreaker.controllers;
 
-import com.ravibeli.circuitbreaker.service.impl.MockServiceImpl;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
-import org.springframework.cloud.client.circuitbreaker.NoFallbackAvailableException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,28 +40,28 @@ public class DemoController {
 
     private CircuitBreakerFactory circuitBreakerFactory;
 
-    private MockServiceImpl mockServiceImpl;
+    private com.ravibeli.circuitbreaker.service.impl.MockService mockService;
 
-    public DemoController(CircuitBreakerFactory circuitBreakerFactory, MockServiceImpl mockServiceImpl) {
+    public DemoController(CircuitBreakerFactory circuitBreakerFactory, com.ravibeli.circuitbreaker.service.impl.MockService mockService) {
         this.circuitBreakerFactory = circuitBreakerFactory;
-        this.mockServiceImpl = mockServiceImpl;
+        this.mockService = mockService;
     }
 
     @GetMapping("/get")
     public Map get() {
-        return mockServiceImpl.get();
+        return mockService.get();
     }
 
     @GetMapping("/delay1/{seconds}")
     public Map delaySupplier(@PathVariable int seconds) {
-        return mockServiceImpl.delay(seconds);
+        return mockService.delay(seconds);
     }
 
 
     @GetMapping("/delay/{seconds}")
     public Map delay(@PathVariable int seconds) {
         return (Map) circuitBreakerFactory.create("custom")
-            .run(() -> (mockServiceImpl.delay(seconds)),throwable -> fallBack());
+            .run(() -> (mockService.delay(seconds)), throwable -> fallBack());
     }
 
     private Map fallBack() {

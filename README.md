@@ -27,7 +27,7 @@ Try calling below API with delay [in seconds] for 4 seconds, as time limiter thr
 ```http://localhost:8080/delay/4```
 
 #### Spring Cloud Circuit Breaker Feature is switched OFF
-* Disabling Circuit breaker feature, in this case, only Vendor-A API will be called, disabling API call of Vendor-B sing fallback methods
+* Disabling Circuit breaker feature, in this case, only Vendor-A API will be called, disabling API call of Vendor-B using fallback methods
 
 ```application.properties```
 >spring.cloud.circuitbreaker.resilience4j.enabled=false

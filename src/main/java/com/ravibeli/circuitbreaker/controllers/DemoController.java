@@ -19,8 +19,6 @@ package com.ravibeli.circuitbreaker.controllers;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,13 +34,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DemoController {
 
-    Logger LOG = LoggerFactory.getLogger(DemoController.class);
-
     private CircuitBreakerFactory circuitBreakerFactory;
 
-    private com.ravibeli.circuitbreaker.service.impl.MockService mockService;
+    private com.ravibeli.circuitbreaker.service.MockService mockService;
 
-    public DemoController(CircuitBreakerFactory circuitBreakerFactory, com.ravibeli.circuitbreaker.service.impl.MockService mockService) {
+    public DemoController(CircuitBreakerFactory circuitBreakerFactory, com.ravibeli.circuitbreaker.service.MockService mockService) {
         this.circuitBreakerFactory = circuitBreakerFactory;
         this.mockService = mockService;
     }
@@ -65,7 +61,7 @@ public class DemoController {
     }
 
     private Map fallBack() {
-        LOG.info("CIRCUIT BREAKER FALLBACK");
+        log.info("CIRCUIT BREAKER FALLBACK");
         Map<String, String> fallback = new HashMap<>();
         fallback.put("FALLBACK", "There is a network hiccup. Please try after sometime.");
         return fallback;

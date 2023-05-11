@@ -7,6 +7,7 @@ Now, you have been asked to implement as follows:
 1. When API of Vendor-A times out, API's of Vendor-B.
 2. Keep customer's happy for always shipment service to serve.
 3. Below configuration demonstrate the fallback mechanism with very simple example.
+![image](https://github.com/ravibeli/circuitbreaker/assets/928202/3bc88f3b-d67f-42be-bcf8-418afc9dcc89)
 
 Use case 2: Hypothetical situation, you want to disable circuit breaker due to some reason.
 1. How to disable, when circuit-breaker logic screwed up due to some reason.

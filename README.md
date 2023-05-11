@@ -4,7 +4,7 @@
 
 Use case 1: You have integrated with multiple shipment vendor's API, which creates the shipment on e-commerce application
 Now, you have been asked to implement as follows:
-1. When API of Vendor-A times out, API's of Vendor-B.
+1. When API of Shipping Service-A times out, API's of Shipping Service-B.
 2. Keep customer's happy for always shipment service to serve.
 3. Below configuration demonstrate the fallback mechanism with very simple example.
 ![image](https://github.com/ravibeli/circuitbreaker/assets/928202/3bc88f3b-d67f-42be-bcf8-418afc9dcc89)

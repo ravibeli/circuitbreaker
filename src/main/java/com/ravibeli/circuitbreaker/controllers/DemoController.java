@@ -44,27 +44,24 @@ public class DemoController {
     }
 
     @GetMapping("/get")
-    public Map get() {
+    public String get() {
         return mockService.get();
     }
 
     @GetMapping("/delay1/{seconds}")
-    public Map delaySupplier(@PathVariable int seconds) {
+    public String delaySupplier(@PathVariable int seconds) {
         return mockService.delay(seconds);
     }
 
 
     @GetMapping("/delay/{seconds}")
-    public Map delay(@PathVariable int seconds) {
-        return (Map) circuitBreakerFactory.create("custom")
-            .run(() -> (mockService.delay(seconds)), throwable -> fallBack());
+    public String delay(@PathVariable int seconds) {
+        return  circuitBreakerFactory.create("custom").run(() -> (mockService.delay(seconds)), throwable -> fallBack());
     }
 
-    private Map fallBack() {
+    private String fallBack() {
         log.info("CIRCUIT BREAKER FALLBACK");
-        Map<String, String> fallback = new HashMap<>();
-        fallback.put("FALLBACK", "There is a network hiccup. Please try after sometime.");
-        return fallback;
+        return "FALLBACK: There is a network hiccup. Please try after sometime.";
     }
 
 }

@@ -36,12 +36,12 @@ public class MockService {
         this.rest = rest;
     }
 
-    public Map get() {
-        return rest.getForObject("https://httpbin.org/get", Map.class);
+    public String get() {
+        return rest.getForObject("https://hub.dummyapis.com/delay?seconds=1", String.class);
     }
 
-    public Map delay(int seconds) {
-        return rest.getForObject("https://httpbin.org/delay/" + seconds, Map.class);
+    public String delay(int seconds) {
+        return rest.getForObject("https://hub.dummyapis.com/delay?seconds=" + seconds, String.class);
     }
 
 }

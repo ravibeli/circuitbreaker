@@ -1,6 +1,6 @@
 # Spring Cloud Circuit Breaker Enable/Disable Feature Demonstration
 
-### Simple demonstration of spring cloud circuit breaker
+### Simple demonstration of spring cloud circuit breaker 
 
 Use case 1: You have integrated with multiple shipment vendor's API, which creates the shipment on e-commerce application
 Now, you have been asked to implement as follows:
